@@ -5,10 +5,23 @@ const apiUrl = 'https://610d315c48beae001747b746.mockapi.io/employees'
 
 function useEmployees() {
 	const [employees, setEmployees] = React.useState(undefined)
-	
+
+	// function buildEmployee(employee) {
+	// 	let annual_salary
+	// 	if (employee.hourly_salary) {
+	// 		annual_salary = 120 * parseInt(employee.hourly_salary) * 12
+	// 	} else if (employee.monthly_salary) {
+	// 		annual_salary = parseInt(employee.monthly_salary) * 12
+	// 	}
+
+	// 	return { ...employee, annual_salary }
+	// }
+
 	async function fetchEmployees() {
 		try {
 			const { data } = await Axios.get(apiUrl)
+			// const dataWithAnnualSalary = data && data.length && data.map(e => buildEmployee(e))
+
 			setEmployees(data)
 		} catch (error) {
 			throw new Error(error)

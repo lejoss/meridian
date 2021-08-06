@@ -6,6 +6,8 @@ import { useEmployees } from './app/hooks';
 function App() {
   const { employees } = useEmployees()
   const [employeeInput, setEmployeeInput] = React.useState('')
+  const [tableData, setTableData] = React.useState(null)
+  const [tableMessage, setTableMessage] = React.useState('')
 
   const employeeInputRef = React.useRef(null)
 
@@ -13,8 +15,29 @@ function App() {
     employeeInputRef.current.focus()
   }, [])
 
-  function handleGetEmployees() {
+  function handleOnSubmit(event) {
+    event.preventDefault()
+    if (employeeInput !== '') {
+      handleGetEmployeeById(employeeInput)
+    } else {
+      handleGetEmployees()
+    }
+  }
 
+  function handleGetEmployees() {
+    setTableData(employees)
+  }
+
+  function handleGetEmployeeById(employeeId) {
+    const employee = employees.filter(e => e.id === employeeId)
+    if (!employee.length) {
+      setTableMessage('employee not found')
+      setTableData(null)
+      setEmployeeInput('')
+      employeeInputRef.current.focus()
+    } else {
+      setTableData(employee)
+    }
   }
 
   function handleOnChangeEmployeeInput(event) {
@@ -28,32 +51,34 @@ function App() {
         meridian test
       </h2>
 
-      <form>
+      <form onSubmit={handleOnSubmit}>
         <label>
           Employee Id
           <input ref={employeeInputRef} value={employeeInput} onChange={handleOnChangeEmployeeInput} type="text" placeholder="type an employee id" />
         </label>
-        <button onClick={handleGetEmployees}>GET EMPLOYEES</button>
+        <button type="submit" >GET EMPLOYEES</button>
       </form>
 
-      {
-        employees && (
-          <Table data={employees} headers={['ID', 'NAME', 'CONTRACT', 'HOURLY RATE', 'MONTHLY RATE']}>
+      {tableData
+        ? (
+          <Table data={tableData} headers={['ID', 'NAME', 'CONTRACT', 'HOURLY SALARY', 'MONTHLY SALARY', 'ANNUAL SALARIES']}>
             {rows => (
               <>
-                {rows && rows.map(({ id, name, contract_type, hourly_salary, monthly_salary }) => (
+                {rows && rows.length && rows.map(({ id, name, contract_type, hourly_salary, monthly_salary, annual_salary }) => (
                   <tr style={{ cursor: 'pointer', color: 'gray' }} key={id}>
                     <td>{id}</td>
                     <td>{name}</td>
                     <td>{contract_type}</td>
                     <td>{hourly_salary}</td>
                     <td>{monthly_salary}</td>
+                    <td>{annual_salary}</td>
                   </tr>
                 ))}
               </>
             )}
           </Table>
         )
+        : <h3>{tableMessage}</h3>
       }
     </div>
   );
