@@ -1,19 +1,13 @@
 import React from 'react'
 import './App.css';
 import { Table } from './components/table/Table'
-import { useEmployees } from './app/hooks';
+import { useEmployees, useForm, useTable } from './app/hooks';
 
 function App() {
   const { employees } = useEmployees()
-  const [employeeInput, setEmployeeInput] = React.useState('')
-  const [tableData, setTableData] = React.useState(null)
-  const [tableMessage, setTableMessage] = React.useState('')
-
-  const employeeInputRef = React.useRef(null)
-
-  React.useEffect(() => {
-    employeeInputRef.current.focus()
-  }, [])
+  const { employeeInput, setEmployeeInput, employeeInputRef } = useForm()
+  const { tableData, setTableData, tableMessage, setTableMessage } = useTable()
+  
 
   function handleOnSubmit(event) {
     event.preventDefault()
@@ -56,7 +50,7 @@ function App() {
           Employee Id
           <input ref={employeeInputRef} value={employeeInput} onChange={handleOnChangeEmployeeInput} type="text" placeholder="type an employee id" />
         </label>
-        <button type="submit" >GET EMPLOYEES</button>
+        <button type="submit">GET EMPLOYEES</button>
       </form>
 
       {tableData
