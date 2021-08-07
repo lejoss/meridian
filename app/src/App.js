@@ -20,8 +20,10 @@ function App() {
     event.preventDefault()
     if (employeeInput !== '') {
       handleGetEmployeeById(employeeInput)
+      employeeInputRef.current.focus()
     } else {
       handleGetEmployees()
+      employeeInputRef.current.focus()
     }
   }
 
