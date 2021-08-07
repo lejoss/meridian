@@ -33,7 +33,7 @@ function App() {
 
   function handleGetEmployeeById(employeeId) {
     const employee = employees && employees.length && employees.filter(e => e.id === employeeId)
-    if (!employee.length) {
+    if (employee && !employee.length) {
       setTableMessage('employee not found')
       setTableData(null)
       setEmployeeInput('')
