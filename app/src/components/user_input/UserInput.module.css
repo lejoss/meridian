@@ -1,0 +1,18 @@
+.label {
+	display: flex;
+	flex: 2;
+	text-align: left;
+	align-items: center;
+	gap: 1em;
+	width: 100%;
+	text-transform: uppercase;
+	font-weight: 600;
+}
+
+.user__input {
+	padding: .5em;
+	flex: 1;
+	background: #fafafa;
+	font-size: 1rem;
+	outline-color: #1976d2;
+}

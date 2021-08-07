@@ -62,7 +62,7 @@ function App() {
             {rows => (
               <>
                 {rows && rows.length && rows.map(({ id, name, contract_type, hourly_salary, monthly_salary, annual_salary }) => (
-                  <tr style={{ cursor: 'pointer', color: 'gray' }} key={id}>
+                  <tr key={id}>
                     <td>{id}</td>
                     <td>{name}</td>
                     <td>{contract_type}</td>

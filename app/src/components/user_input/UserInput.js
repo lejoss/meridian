@@ -1,10 +1,10 @@
 import React from 'react'
-
 import styles from './UserInput.module.css'
+
 const UserInput = React.forwardRef((props, ref) => (
-	<label>
+	<label className={styles.label}>
 		Employee ID
-		<input style={styles.user__input} ref={ref} {...props} />
+			<input className={styles.user__input} ref={ref} {...props} />
 	</label>
 ))
 
