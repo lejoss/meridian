@@ -13,7 +13,7 @@ function useEmployees() {
 		} else if (employee.monthly_salary) {
 			annual_salary = parseInt(employee.monthly_salary) * 12
 		}
-
+		
 		return { ...employee, annual_salary }
 	}
 

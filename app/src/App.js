@@ -1,6 +1,14 @@
 import React from 'react'
+import NumberFormat from 'react-number-format';
 import './App.css';
-import { Table } from './components/table/Table'
+import {
+  AlertMessage,
+  Button,
+  Form,
+  Table,
+  Title,
+  UserInput
+ } from './components'
 import { useEmployees, useForm, useTable } from './app/hooks';
 
 function App() {
@@ -8,7 +16,6 @@ function App() {
   const { employeeInput, setEmployeeInput, employeeInputRef } = useForm()
   const { tableData, setTableData, tableMessage, setTableMessage } = useTable()
   
-
   function handleOnSubmit(event) {
     event.preventDefault()
     if (employeeInput !== '') {
@@ -41,17 +48,13 @@ function App() {
 
   return (
     <div className="App">
-      <h2>
-        meridian test
-      </h2>
+      
+      <Title>meridian test</Title>
 
-      <form onSubmit={handleOnSubmit}>
-        <label>
-          Employee Id
-          <input ref={employeeInputRef} value={employeeInput} onChange={handleOnChangeEmployeeInput} type="text" placeholder="type an employee id" />
-        </label>
-        <button type="submit">GET EMPLOYEES</button>
-      </form>
+      <Form onSubmit={handleOnSubmit}>
+        <UserInput ref={employeeInputRef} value={employeeInput} onChange={handleOnChangeEmployeeInput} placeholder="type an employee id" />
+        <Button>get employees</Button>
+      </Form>
 
       {tableData
         ? (
@@ -63,16 +66,16 @@ function App() {
                     <td>{id}</td>
                     <td>{name}</td>
                     <td>{contract_type}</td>
-                    <td>{hourly_salary}</td>
-                    <td>{monthly_salary}</td>
-                    <td>{annual_salary}</td>
+                    <td><NumberFormat value={hourly_salary} displayType={'text'} thousandSeparator={true} prefix={'$'} /></td>
+                    <td><NumberFormat value={monthly_salary} displayType={'text'} thousandSeparator={true} prefix={'$'} /></td>
+                    <td><NumberFormat value={annual_salary} displayType={'text'} thousandSeparator={true} prefix={'$'} /></td>
                   </tr>
                 ))}
               </>
             )}
           </Table>
         )
-        : <h3>{tableMessage}</h3>
+        : <AlertMessage>{tableMessage}</AlertMessage>
       }
     </div>
   );

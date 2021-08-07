@@ -1,5 +1,4 @@
-export function Table({ data, headers, children, className }) {
-	console.log(data)
+export default function Table({ data, headers, children, className }) {
 	return (
 		<table className={className}>
 			<thead>
